@@ -38,10 +38,7 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         path: ':id',
-                        element: 
-                        // <Provider store={store}>
-                        <ShowRecipe />,
-                        // {/* </Provider> */}
+                        element: <ShowRecipe />,
                         errorElement: <h1 style={{ color: "red" }}>ERROR: show recipe</h1>,
                     }
                 ]

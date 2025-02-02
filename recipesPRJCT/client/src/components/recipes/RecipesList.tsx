@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../global_state/redux/store'
-import { Grid, Grid2, List, ListItemButton, ListItemIcon } from '@mui/material';
+import { Box, CircularProgress, Grid, Grid2, List, ListItemButton, ListItemIcon } from '@mui/material';
 import { useEffect } from 'react';
 import { fetchRecipes } from '../global_state/redux/recipesSlice';
 import { RecipeType } from '../types';
@@ -11,7 +11,11 @@ import { Link, Outlet } from 'react-router';
 export default () => {
 
     const listRecipes = useSelector((state: RootState) => state.recipes.list);
+    const loadRecipes = useSelector((state: RootState) => state.recipes.loading);
     const dispatch = useDispatch<AppDispatch>();
+
+console.log(loadRecipes);
+
 
     useEffect(() => {
         dispatch(fetchRecipes());
@@ -24,7 +28,7 @@ export default () => {
                 {/* רשימה בצד ימין - שליש מהעמוד */}
                 <Grid item xs={4} sx={{ borderRight: "1px solid #ddd", padding: 2, height: "100%", overflowY: "auto" }}>
 
-                    {Array.isArray(listRecipes) ? listRecipes.map((item, index) => (
+                    {true ? listRecipes.map((item, index) => (
                         <ListItemButton key={index}>
                             <ListItemIcon sx={{ paddingLeft: '2vw' }}>
                                 <RestaurantIcon sx={{ color: "#F2E5C9" }} />
@@ -33,7 +37,7 @@ export default () => {
                                 {item.title}
                             </Link>
                         </ListItemButton>
-                    )) : <h1>Loading...</h1>}
+                    )) : <Box><CircularProgress color="secondary" /></Box>}
 
                     {/* <List sx={{paddingLeft:'10%' }}> */}
                     {/* {listRecipes.map((item, index) => (

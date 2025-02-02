@@ -44,7 +44,7 @@ const recipesSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchRecipes.pending, (state) => {
-                state.loading = true,//<CircularProgress color="secondary" />
+                state.loading = true,
                 state.error = null
             })
             .addCase(fetchRecipes.fulfilled, (state, action: PayloadAction<RecipeType[]>) => {

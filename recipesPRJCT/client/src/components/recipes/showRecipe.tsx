@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Paper, Typography } from "@mui/material";
 import { RecipeType } from "../types";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -12,15 +12,20 @@ import EmojiFoodBeverageIcon from '@mui/icons-material/EmojiFoodBeverage';
 
 export default () => {
 
+    const loadRecipe = useSelector((state: RootState) => state.recipes.loading);
+    
     const { id } = useParams();
     const recipesList = useSelector((state: RootState) => state.recipes.list);
     let recipe: RecipeType | undefined;
-    if (id) 
+    if (id)
         recipe = recipesList.find(r => r.id === parseInt(id));
     console.log(recipe);
-    
+
     return (<>
-        <Grid container spacing={2}/* sx={{direction:'ltr'}}*/>
+        {false ?
+            <Box><CircularProgress color="secondary" /></Box>
+            :
+            <Grid container spacing={2}/* sx={{direction:'ltr'}}*/>
                 <Grid item xs={10}>
                     <Box
                         sx={{
@@ -30,17 +35,17 @@ export default () => {
                             borderRadius: '8px',
                             boxShadow: 3,
                             opacity: 0.6
-                            
+
                         }}>
                         <Paper elevation={3} sx={{ padding: 2, color: '#5E4238' }}>
                             <Typography variant="h4" component="h1" gutterBottom>
-                            <strong><RestaurantIcon fontSize="large" /> {recipe!.title} </strong>
+                                <strong><RestaurantIcon fontSize="large" /> {recipe!.title} </strong>
                             </Typography>
 
                             <Typography variant="body1" gutterBottom>
                                 <strong>{recipe!.description}</strong>
                             </Typography>
-                         
+
 
                             <Typography variant="body1" gutterBottom>
                                 <h2>Ingredients:</h2>
@@ -63,6 +68,6 @@ export default () => {
                         </Paper>
                     </Box>
                 </Grid>
-            </Grid>
+            </Grid>}
     </>)
 }
