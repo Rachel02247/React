@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { Modal, TextField, Box, Button } from '@mui/material';
 import { AppDispatch, RootState } from '../global_state/redux/store';
 import { addRecipes, fetchRecipes } from '../global_state/redux/recipesSlice';
-import { styleModal } from '../login/loginAndRegister';
+import { styleModal } from '../login/loginApi';
 import { setIsOpen } from '../global_state/redux/addRecipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RecipeType } from '../types';

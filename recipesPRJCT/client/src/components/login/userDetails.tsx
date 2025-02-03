@@ -7,7 +7,7 @@ import LoginStore from "../global_state/mobx/LoginStore"
 
 
 
-const UserNameAndAvatr = observer(() => {
+const userDetails = observer(() => {
 
     const [user,] = useContext(userContext)
 
@@ -57,4 +57,4 @@ const UserNameAndAvatr = observer(() => {
     </>
 });
 
-export default UserNameAndAvatr;
+export default userDetails;

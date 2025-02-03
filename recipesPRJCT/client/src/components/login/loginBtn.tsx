@@ -1,11 +1,11 @@
 import { Box, Button } from "@mui/material";
 import { useState } from "react";
-import LoginAndRegister from "./loginAndRegister";
+import LoginAndRegister from "./loginApi";
 import { observer } from "mobx-react";
 import { statusButton } from "../types";
 import LoginStore from "../global_state/mobx/LoginStore";
 
-const LoginAndRegisterBtn = observer(() => {
+const LoginBtn = observer(() => {
 
     const [signInOrUp, setSignInOrUp] = useState<statusButton | null>(null);
 
@@ -26,4 +26,4 @@ const LoginAndRegisterBtn = observer(() => {
         }
     </>)
 });
-export default LoginAndRegisterBtn;
+export default LoginBtn;

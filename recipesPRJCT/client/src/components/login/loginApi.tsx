@@ -1,7 +1,7 @@
 import { createContext, FormEvent, useContext, useRef, useState } from "react";
 import { userContext } from "./userContextReducer";
 import axios from "axios";
-import UserNameAndAvatr from "./userNameAndAvatr";
+import UserNameAndAvatr from "./userDetails";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { observer } from "mobx-react";
 import LoginStore from "../global_state/mobx/LoginStore";

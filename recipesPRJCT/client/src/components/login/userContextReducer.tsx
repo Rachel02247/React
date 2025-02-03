@@ -1,5 +1,5 @@
 import { createContext, Dispatch, useReducer } from "react"
-import LoginAndRegisterBtn from "./loginAndRegisterBtn";
+import LoginAndRegisterBtn from "./loginBtn";
 import { User } from "../types";
 
 type partUser = Partial<User>;
