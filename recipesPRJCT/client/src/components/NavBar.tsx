@@ -1,17 +1,16 @@
-import { BrowserRouter, Link } from "react-router"
+import { Link } from "react-router"
 import isLoggedstore from "./global_state/mobx/LoginStore"
 import { observer } from "mobx-react"
-import LoginStore from "./global_state/mobx/LoginStore"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "./global_state/redux/store"
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "./global_state/redux/store"
 import { setIsOpen } from "./global_state/redux/addRecipeSlice"
 
 export default observer(() => {
 
     const dispatch = useDispatch<AppDispatch>();
-    
+
     return (<>
-    
+
         <nav style={{
             position: "absolute",
             top: "25px",
@@ -25,8 +24,8 @@ export default observer(() => {
             fontSize: '20px',
             padding: "8px",
         }}>
-            
-            <Link to='/'><img style={{width: '40px', borderRadius: '50%', paddingBottom: '10px'}}src="../../img/logo.png" alt="logo" /></Link>
+
+            <Link to='/'><img style={{ width: '40px', borderRadius: '50%', paddingBottom: '10px' }} src="../../img/logo.png" alt="logo" /></Link>
             <Link style={{ color: '#8E6549' }} to='/home'>Home</Link>
             <Link style={{ color: '#8E6549' }} to='/about'>About</Link>
             <Link style={{ color: '#8E6549' }} to='/recipes'>Recipes</Link>

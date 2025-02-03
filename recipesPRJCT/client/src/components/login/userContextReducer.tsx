@@ -1,4 +1,4 @@
-import { createContext, Dispatch, useReducer} from "react"
+import { createContext, Dispatch, useReducer } from "react"
 import LoginAndRegisterBtn from "./loginAndRegisterBtn";
 import { User } from "../types";
 
@@ -9,16 +9,14 @@ type action = {
     data: partUser
 }
 
-const userReducer = (state: User, action: action): User =>{
-    switch(action.type){
+const userReducer = (state: User, action: action): User => {
+    switch (action.type) {
         case 'CREATE':
-            return {...state, ...action.data}
-        case 'UPDATE': 
-            return {...state, ...action.data}
-        // case 'DELETE':
-        //         return state;
+            return { ...state, ...action.data }
+        case 'UPDATE':
+            return { ...state, ...action.data }
         default:
-            return state     
+            return state
     }
 }
 
@@ -26,12 +24,12 @@ export const userContext = createContext<[User, Dispatch<action>]>([{} as User, 
 
 export const UserContextReducer = () => {
 
-const [user, usersDispatch] = useReducer(userReducer, {} as User);
+    const [user, usersDispatch] = useReducer(userReducer, {} as User);
 
     return (<>
         <userContext.Provider value={[user, usersDispatch]}>
-            <LoginAndRegisterBtn/>
+            <LoginAndRegisterBtn />
         </userContext.Provider>
-       
+
     </>);
 };

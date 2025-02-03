@@ -1,4 +1,4 @@
-import { object, string } from 'yup'
+import { array, object, string } from 'yup'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Modal, TextField, Box, Button } from '@mui/material';
@@ -7,13 +7,12 @@ import { addRecipes, fetchRecipes } from '../global_state/redux/recipesSlice';
 import { styleModal } from '../login/loginAndRegister';
 import { setIsOpen } from '../global_state/redux/addRecipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { RecipeType } from '../types';
 
 const schema = object({
     title: string().required(),
     description: string(),
-    products: string().required(),
-    ingredients: string().required(),
+    ingredients: array().of(string().required("Ingredient cannot be empty")).min(1, "At least one ingredient is required"),
     instructions: string()
 });
 
@@ -21,7 +20,6 @@ const AddRecipe = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const isOpenModal = useSelector((state: RootState) => state.isFormOpen.isOpen);
-    const navigate = useNavigate();
 
     const {
         formState: { errors },
@@ -34,27 +32,23 @@ const AddRecipe = () => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: 'ingredients' as never
-      });
+    });
 
-    const onSubmit = (data: any) => {
-        console.log("submit");
-        
+    const onSubmit = (data: RecipeType) => {
+
         reset();
         dispatch(setIsOpen(false));
-
-        dispatch(addRecipes({ ...data, ingredients: data.ingredients.split(',') }));
+        dispatch(addRecipes(data));
         dispatch(fetchRecipes());
-        // navigate('/recipes');
-
     }
 
     return (<>
-        <Modal open={isOpenModal} onClose={() => dispatch(setIsOpen(false))} >
-          
+        <Modal open={isOpenModal} >
+
             <Box sx={styleModal}>
-                
+
                 <h3>hi👩‍🍳 enter your recipe :)</h3>
-               
+
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <TextField variant="filled" margin="normal" fullWidth label="title" {...register('title')} />
                     {errors.title?.message && <div>{errors.title?.message} </div>}
@@ -64,11 +58,12 @@ const AddRecipe = () => {
 
                     {fields.map((item, index) => (
                         <div key={item.id}>
-                            <TextField {...register('ingredients')} label={`product ${index + 1}`} />
+                            <br />
+                            <TextField {...register(`ingredients.${index}`)} label={`product ${index + 1}`} />
+                            <span>  </span>
                             <Button style={{ color: '#8E6549', border: '2px solid #8E6549' }} onClick={() => remove(index)}>remove product</Button>
                         </div>
                     ))}
-
                     <Button style={{ color: '#8E6549', border: '2px solid #8E6549' }} onClick={() => append('')} sx={{ mt: 2 }}>
                         <strong>add product</strong>
                     </Button>

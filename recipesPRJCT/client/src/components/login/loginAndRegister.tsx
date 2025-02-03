@@ -27,15 +27,11 @@ export const UserIdContext = createContext<number>(-1);
 export default observer(({ signInOrUp }: { signInOrUp: string }) => {
 
     const [openModal, setOpenModal] = useState(true);
-    const [userID, setUserID] = useState<number>(-1);
-    const [user, userDispatch] = useContext(userContext);
+    const [userID, ] = useState<number>(-1);
+    const [, userDispatch] = useContext(userContext);
 
-    const firstNameRef = useRef<HTMLInputElement>(null)
-    const lastNameRef = useRef<HTMLInputElement>(null)
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
-    const addressRef = useRef<HTMLInputElement>(null)
-    const phoneRef = useRef<HTMLInputElement>(null)
 
     const url = 'http://localhost:3000/api/user';
 
@@ -43,13 +39,11 @@ export default observer(({ signInOrUp }: { signInOrUp: string }) => {
         e.preventDefault();
 
         try {
-
             const res = await axios.post(url + '/' + signInOrUp,
                 {
                     email: emailRef.current?.value,
                     password: passwordRef.current?.value
-                },
-            )
+                },)
 
             if (signInOrUp === "login")
                 LoginStore.userId = res.data.user.id;
@@ -72,7 +66,7 @@ export default observer(({ signInOrUp }: { signInOrUp: string }) => {
             LoginStore.LoginStatus = "after";
 
         } catch (e: any) {
-            console.log(e);
+            
             if (e.status === 422 || signInOrUp === 'register')
                 alert('user is already sign up');
 

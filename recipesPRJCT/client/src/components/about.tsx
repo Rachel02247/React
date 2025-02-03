@@ -8,7 +8,5 @@ export default () => {
         <Box sx={styleBox}>
              About 
         </Box>
-
-
     </>)
 }

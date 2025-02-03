@@ -17,17 +17,34 @@ export const fetchRecipes = createAsyncThunk('recipes/fetch', async (_, thunkApi
 
 export const addRecipes = createAsyncThunk('recipes/add', async (recipe: RecipeType, thunkApi) => {
     try {
-        console.log(recipe);
         
         const res = await axios.post("http://localhost:3000/api/recipes",
            recipe,
            { headers: { 'user-id': LoginStore.UserId + '' } 
         });
         return res.data as RecipeType[];
+
     } catch (error) {
         return thunkApi.rejectWithValue(error);
     }
 });
+
+export const deleteRecipe = createAsyncThunk('recipes/delete',
+    async ({ recipeId, userId }: { recipeId: number; userId: number }, thunkApi) => {
+        try {
+            await axios.delete('http://localhost:3000/api/recipes', {
+                headers: { 'user-id': userId },
+                data: { id: recipeId }
+            });
+            return recipeId;
+        } catch (error) {
+            if (error instanceof Error) {
+                return thunkApi.rejectWithValue(error);
+            }
+            return thunkApi.rejectWithValue('Failed to delete recipe');
+        }
+    }
+);
 
 const recipesSlice = createSlice({
     name: 'recipes',

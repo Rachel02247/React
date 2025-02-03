@@ -42,4 +42,19 @@ router.post('/', authMiddleware, (req, res) => {
     res.status(201).json({ message: "Recipe added", recipe: newRecipe });
 });
 
+router.delete('/', authMiddleware, (req, res) => {
+    const id = parseInt(req.body.id);
+    const db = JSON.parse(fs.readFileSync(dbPath));
+    const recipe = db.recipes.find(recipe => recipe.id === id);
+    if (!recipe) {
+        return res.status(404).json({ message: "Recipe not found" });
+    }
+    if (recipe.authorId.toString()!== req.header('user-id').toString()) {
+        return res.status(403).json({ message: "Unauthorized" });
+    }
+    db.recipes = db.recipes.filter(recipe => recipe.id !== id);
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+    res.json({ message: "Recipe deleted" });
+})
+
 export default router;

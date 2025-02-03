@@ -9,9 +9,7 @@ import LoginStore from "../global_state/mobx/LoginStore"
 
 const UserNameAndAvatr = observer(() => {
 
-
-
-    const [user, userDispatch] = useContext(userContext)
+    const [user,] = useContext(userContext)
 
     const stringAvatar = (name: string) => {
         if (!name)
