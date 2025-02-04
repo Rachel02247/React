@@ -1,5 +1,5 @@
 import { Avatar, Button, Stack } from "@mui/material"
-import { userContext } from "./userContextReducer"
+import { UserContext } from "../userContextReducer"
 import { useContext } from "react"
 import UpdateUser from "./updateUser"
 import { observer } from "mobx-react"
@@ -9,7 +9,7 @@ import LoginStore from "../global_state/mobx/LoginStore"
 
 const userDetails = observer(() => {
 
-    const [user,] = useContext(userContext)
+    const [user,] = useContext(UserContext)
 
     const stringAvatar = (name: string) => {
         if (!name)
@@ -23,7 +23,6 @@ const userDetails = observer(() => {
     }
 
     const stringToColor = (string: string) => {
-        console.log(string);
 
         let hash = 0;
         let i;

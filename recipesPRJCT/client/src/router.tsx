@@ -1,8 +1,6 @@
-import { createBrowserRouter, Outlet } from "react-router"; // Make sure to import Outlet
+import { createBrowserRouter } from "react-router"; // Make sure to import Outlet
 import About from "./components/about";
 import HomePage from "./components/HomePage";
-import { Provider } from "react-redux";
-import store from "./components/global_state/redux/store";
 import RecipesList from "./components/recipes/RecipesList";
 import AddRecipe from "./components/recipes/AddRecipe";
 import AppLayout from "./AppLayout";
@@ -28,11 +26,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/recipes',
-                element:
-                    // <Provider store={store}>
-                        <RecipesList />
-                    // </Provider>
-                    ,
+                element: <RecipesList />,
                 errorElement: <h1 style={{ color: "red" }}>ERROR: show all recipes</h1>,
 
                 children: [
@@ -45,10 +39,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/addRecipe',
-                element:
-                    // <Provider store={store}>
-                        <AddRecipe />,
-                    // </Provider>,
+                element: <AddRecipe />,
                 errorElement: <h1 style={{ color: "red" }}>ERROR: add recipe</h1>
             }
 

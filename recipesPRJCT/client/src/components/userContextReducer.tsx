@@ -1,6 +1,6 @@
 import { createContext, Dispatch, useReducer } from "react"
-import LoginAndRegisterBtn from "./loginBtn";
-import { User } from "../types";
+import LoginAndRegisterBtn from "./login/loginBtn";
+import { User } from "./types";
 
 type partUser = Partial<User>;
 
@@ -20,16 +20,16 @@ const userReducer = (state: User, action: action): User => {
     }
 }
 
-export const userContext = createContext<[User, Dispatch<action>]>([{} as User, () => { }]);
+export const UserContext = createContext<[User, Dispatch<action>]>([{} as User, () => { }]);
 
 export const UserContextReducer = () => {
 
     const [user, usersDispatch] = useReducer(userReducer, {} as User);
 
     return (<>
-        <userContext.Provider value={[user, usersDispatch]}>
+        <UserContext value={[user, usersDispatch]}>
             <LoginAndRegisterBtn />
-        </userContext.Provider>
+        </UserContext>
 
     </>);
 };

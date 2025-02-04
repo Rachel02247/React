@@ -4,22 +4,29 @@ import { Box, Button, CircularProgress, Grid, ListItemButton, ListItemIcon } fro
 import { useEffect } from 'react';
 import { deleteRecipe, fetchRecipes } from '../global_state/redux/recipesSlice';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import { Link, Outlet } from 'react-router';
+import { Link, Outlet, useNavigate } from 'react-router';
 import { Delete } from "@mui/icons-material";
 import { RecipeType } from '../types';
+import { observer } from 'mobx-react';
+import LoginStore from '../global_state/mobx/LoginStore';
 
-export default () => {
+export default observer(() => {
 
     const { list: listRecipes, loading: loadRecipes } = useSelector((state: RootState) => state.recipes);
     const dispatch = useDispatch<AppDispatch>();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(fetchRecipes());
     }, [dispatch])
 
     const handleDelete = async (item: RecipeType) => {
+        if(item.authorId != LoginStore.UserId)
+            return;
         await dispatch(deleteRecipe({ recipeId: item.id, userId: item.authorId }));
         await dispatch(fetchRecipes());
+        navigate('/recipes');
     }
 
     return (<>
@@ -29,8 +36,11 @@ export default () => {
                 <Grid item xs={4} sx={{ borderRight: "1px solid #ddd", padding: 2, height: "100%", overflowY: "auto" }}>
 
                     {!loadRecipes ? listRecipes.map((item, index) => (
+                        
                         <ListItemButton key={index}>
-                            <Button sx={{ color: '#5E4238' }} onClick={() => handleDelete(item)}><Delete /></Button>
+                            {LoginStore.LoginStatus === 'after' && <Button sx={{ color: '#5E4238' }} onClick={() => handleDelete(item)}>
+                                <Delete />
+                            </Button>}
                             <ListItemIcon sx={{ paddingLeft: '2vw' }}>
                                 <RestaurantIcon sx={{ color: "#F2E5C9" }} />
                             </ListItemIcon>
@@ -48,6 +58,6 @@ export default () => {
             </Grid>
         </div>
     </>)
-}
+});
 
 

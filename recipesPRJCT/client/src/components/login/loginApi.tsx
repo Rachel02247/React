@@ -1,5 +1,5 @@
 import { createContext, FormEvent, useContext, useRef, useState } from "react";
-import { userContext } from "./userContextReducer";
+import { UserContext } from "../userContextReducer";
 import axios from "axios";
 import UserNameAndAvatr from "./userDetails";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
@@ -28,7 +28,7 @@ export default observer(({ signInOrUp }: { signInOrUp: string }) => {
 
     const [openModal, setOpenModal] = useState(true);
     const [userID, ] = useState<number>(-1);
-    const [, userDispatch] = useContext(userContext);
+    const [, userDispatch] = useContext(UserContext);
 
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)

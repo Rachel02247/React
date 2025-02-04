@@ -112,6 +112,24 @@
       "id": 1738540383573,
       "email": "t@t.t",
       "password": "t"
+    },
+    {
+      "id": 1738612411911,
+      "email": "MICHAL@gmail.com",
+      "password": "m",
+      "firstName": "",
+      "lastName": "",
+      "address": "",
+      "phone": ""
+    },
+    {
+      "id": 1738613752482,
+      "email": "lali@l.l",
+      "password": "l",
+      "firstName": "lali",
+      "lastName": "",
+      "address": "",
+      "phone": ""
     }
   ],
   "recipes": [

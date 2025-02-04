@@ -1,6 +1,6 @@
 import { Box, Button, Modal, TextField, Typography } from "@mui/material"
 import { useContext, useRef, useState } from "react";
-import { userContext } from "./userContextReducer";
+import { UserContext } from "../userContextReducer";
 import axios from "axios";
 import LoginStore from "../global_state/mobx/LoginStore";
 
@@ -10,7 +10,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    height: '70%',
+    height: '75%',
     bgcolor: 'white',
     color: '#8E6549',
     border: '2px solid #8E6549',
@@ -21,7 +21,7 @@ const style = {
 const UpdateUser = () => {
 
     const [open, setOpen] = useState(false);
-    const [user, userDispatch] = useContext(userContext);
+    const [user, userDispatch] = useContext(UserContext);
 
     const url = "http://localhost:3000/api/user";
 
@@ -71,13 +71,12 @@ const UpdateUser = () => {
         <div>
             <Button sx={{ color: '#8E6549', border: '2px solid #F2E5C9' }} variant='outlined' onClick={handleOpen}>update</Button>
             <Modal
-                sx={style}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="update-form"
                 aria-describedby="update-form-description"
             >
-                <Box >
+                <Box sx={style} >
                     <Typography sx={{ color: '#8E6549' }} id="update-form" variant="h6" component="h2">
                         hi {user.firstName}
                     </Typography>
@@ -92,8 +91,8 @@ const UpdateUser = () => {
                             <TextField label='address' defaultValue={user.address} inputRef={addressRef} />
                             <br /><br />
                             <TextField label='phone' defaultValue={user.phone} inputRef={phoneRef} />
-                            <br />
-                            <Button sx={{ color: '#8E6549' }} color="info" fullWidth variant='text' type="submit">save change</Button>
+                            <br /><br />
+                            <Button sx={{ bgcolor: '#8E6549' }} fullWidth variant='contained' type="submit">save change</Button>
                         </form>
                     </Typography>
                 </Box>

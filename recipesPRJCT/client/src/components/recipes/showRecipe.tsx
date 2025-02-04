@@ -18,7 +18,10 @@ export default () => {
 
     return (<>
         {loadRecipes ?
-            <Box><CircularProgress color="secondary" /></Box>
+            <Box
+                sx={{ paddingLeft: '3%', paddingTop: '10%', fontSize: '20px', fontWeight: 'bold' }}>
+                <CircularProgress sx={{ color: '#5E4238' }} color="inherit" />
+            </Box>
             :
             <Grid container spacing={2}>
                 <Grid item xs={10}>
@@ -42,7 +45,7 @@ export default () => {
                             </Typography>
 
                             <Typography variant="body1" gutterBottom>
-                                <h2>Ingredients:</h2>
+                                <strong style={{ fontSize: '20px' }}>Ingredients:</strong>
                             </Typography>
 
                             <div>
@@ -54,7 +57,10 @@ export default () => {
                             </div>
 
                             <Typography variant="body1" gutterBottom>
-                                <h3>Instructions:</h3> {recipe!.instructions}
+                                <br />
+                                <strong style={{ fontSize: '20px' }}>Instructions:</strong>
+                                <br />
+                                {recipe!.instructions}
                             </Typography>
                             <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 1 }}>
                                 <EmojiFoodBeverageIcon fontSize="medium" />
